@@ -5,7 +5,9 @@
  */
 package Temitope.Blazskills.com;
 
+import java.awt.HeadlessException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
@@ -44,7 +46,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jTextField_LN = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton_Register = new javax.swing.JButton();
+        jButton_Register_ = new javax.swing.JButton();
         jLabelregister = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jTextField_UN = new javax.swing.JTextField();
@@ -141,13 +143,13 @@ public class RegistrationForm extends javax.swing.JFrame {
             }
         });
 
-        jButton_Register.setBackground(new java.awt.Color(34, 167, 240));
-        jButton_Register.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton_Register.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_Register.setText("Register");
-        jButton_Register.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Register_.setBackground(new java.awt.Color(34, 167, 240));
+        jButton_Register_.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jButton_Register_.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Register_.setText("Register");
+        jButton_Register_.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_RegisterActionPerformed(evt);
+                jButton_Register_ActionPerformed(evt);
             }
         });
 
@@ -252,7 +254,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                         .addGap(87, 87, 87)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton_Register, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton_Register_, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(139, 139, 139)
                         .addComponent(jLabelregister)))
@@ -298,7 +300,7 @@ public class RegistrationForm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton_Register, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_Register_, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelregister, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -340,7 +342,7 @@ public class RegistrationForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton_RegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_RegisterActionPerformed
+    private void jButton_Register_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Register_ActionPerformed
         String fname = jTextField_FN.getText();
         String lname = jTextField_LN.getText();
         String uname = jTextField_UN.getText();
@@ -352,26 +354,26 @@ public class RegistrationForm extends javax.swing.JFrame {
         String address = jTextArea_ADDRESS.getText();
         
         PreparedStatement ps;
+        ResultSet rs;
         String query = "INSERT INTO `the_app_users`(`u_fname`, `u_lname`, `u_uname`, `u_pass`, `u_bdate`, `u_address`) VALUES(?,?,?,?,?,?)";
         
         try {
-            ps = MyConnection.getcoConnection().prepareStatement(query);
+            ps = MyConnection.getConnection().prepareStatement(query);
             ps.setString(1, fname);
              ps.setString(2, lname);
               ps.setString(3, uname);
                ps.setString(4, pass);
                  ps.setString(5, bdate);
                   ps.setString(6, address);
-                   
                   if(ps.executeUpdate()> 0)
                   {
                       JOptionPane.showMessageDialog(null, "New User Added");
                   }
-        } catch (SQLException ex) {
-            Logger.getLogger(RegistrationForm.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException | HeadlessException ex) {
+           JOptionPane.showMessageDialog(null, ex);
         }
         
-    }//GEN-LAST:event_jButton_RegisterActionPerformed
+    }//GEN-LAST:event_jButton_Register_ActionPerformed
 
     private void jLabelregisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelregisterMouseClicked
         LoginForm lgf = new LoginForm();
@@ -428,7 +430,7 @@ public class RegistrationForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel close;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton_Register;
+    private javax.swing.JButton jButton_Register_;
     private com.toedter.calendar.JDateChooser jDateChooser_BDATE;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
